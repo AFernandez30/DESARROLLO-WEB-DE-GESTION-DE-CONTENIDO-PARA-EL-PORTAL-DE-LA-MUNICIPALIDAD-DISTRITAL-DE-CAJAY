@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /cajay/
+
+RewriteRule ^municipalidad/([\w-]+)/?$ municipalidad.php?titulo=$1 [L]
+RewriteRule ^serviciosenlinea/([\w-]+)/?$ serviciosenlinea.php?titulo=$1 [L]
+RewriteRule ^noticia/([\w-]+)/?$ noticia.php?url=$1 [L]
+RewriteRule ^norma/([\w-]+)/?$ norma.php?url=$1 [L]
+
+# Evita que se aplique la regla de reescritura si la URL ya termina en ".php"
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*?)/?$ $1.php [L]
+
+#DirectoryIndex inicio index
+RewriteRule ^inicio$ index.php [L]
+# Municipalidad
+# Excepciones para archivos CSS y JS
+ErrorDocument 404 /cajay/error404
+ErrorDocument 500 /cajay/error500
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#Evitar que cuand ingrese a la url liste los archivos
+Options -Indexes
+
+
+# SecRuleEngine On
+# SecDefaultAction "deny,phase:2,status:403"
+# Configurar documentos de error personalizados

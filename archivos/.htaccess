@@ -1,0 +1,14 @@
+# Deny access to files with extensions .pdf
+#<FilesMatch "\.(pdf)$">
+#Order allow,deny
+#Deny from all
+#
+#</FilesMatch>
+# Denegar acceso a todos los archivos
+Order deny,allow
+Deny from all
+
+# Permitir acceso solo a archivos específicos
+<FilesMatch "\.(pdf|png|jpg|jpeg|docx)$">
+    Allow from all
+</FilesMatch>
